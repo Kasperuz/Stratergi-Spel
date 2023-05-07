@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://caaxm1lw5h44v"]
+
+[ext_resource type="Script" path="res://Unit/Unit.gd" id="1_qncsg"]
+[ext_resource type="Texture2D" uid="uid://bdnr6n4w7xrx0" path="res://Unit/Units.png" id="2_pj0li"]
+
+[node name="Unit" type="Node2D"]
+script = ExtResource("1_qncsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_pj0li")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -104.0
+offset_top = -23.0
+offset_right = 106.0
+offset_bottom = -3.0
+theme_override_font_sizes/font_size = 12
+text = "0"
+horizontal_alignment = 1

@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3ykuka3lpud7"]
+
+[ext_resource type="Script" path="res://Map mode ui/map_mode_ui.gd" id="1_mk656"]
+[ext_resource type="ButtonGroup" uid="uid://dns34h5va2j75" path="res://Map mode ui/Checkbox button grup.tres" id="2_4iya0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ev0df"]
+
+[node name="Map mode ui" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_mk656")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 140.0
+offset_bottom = 112.0
+
+[node name="Speed button" type="CheckBox" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0571429
+anchor_top = 0.0714286
+anchor_right = 0.6
+anchor_bottom = 0.397744
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ev0df")
+button_pressed = true
+button_group = ExtResource("2_4iya0")
+text = "Speed"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Pruduction button" type="CheckBox" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0571429
+anchor_top = 0.357143
+anchor_right = 1.32857
+anchor_bottom = 0.683459
+grow_horizontal = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ev0df")
+button_group = ExtResource("2_4iya0")
+text = "Production"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Defence button" type="CheckBox" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0571429
+anchor_top = 0.642857
+anchor_right = 0.871429
+anchor_bottom = 0.969173
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ev0df")
+button_group = ExtResource("2_4iya0")
+text = "Defence"
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Panel/Speed button" to="." method="_on_speed_button_pressed"]
+[connection signal="pressed" from="Panel/Pruduction button" to="." method="_on_pruduction_button_pressed"]
+[connection signal="pressed" from="Panel/Defence button" to="." method="_on_defence_button_pressed"]
