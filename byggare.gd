@@ -1,19 +1,14 @@
 extends Control
 
-enum lägen{ inget = 0, gubbar = 1, pruduktion = 2, försvar = 3, hastighet = 4}
+enum lägen{ inget = 0, pruduktion = 1, försvar = 2, hastighet = 3}
 
 var läge := lägen.inget
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if läge > lägen.inget:
-		if läge == lägen.gubbar and Input.is_action_just_pressed("Left click"):
-			$"../../Unit Maneger".newUnit($"../../TileMap".local_to_map($"../../TileMap".get_local_mouse_position()),$"../Lag välgare".lag,100)
+		pass
 	
-
-func _on_gubbar_check_button_pressed():
-	läge = lägen.gubbar
-
 
 func _on_pruducton_check_button_pressed():
 	läge = lägen.pruduktion
@@ -29,3 +24,11 @@ func _on_hastighet_check_button_pressed():
 
 func _on_check_button_pressed():
 	läge = lägen.inget
+
+
+func _on_gubbar_button_pressed():
+	print($"../../Pruduktion".pengar)
+	if $"../../Pruduktion".pengar[$"../Lag välgare".lag] >= 10:
+		$"../../Unit Maneger".newUnit($"../../Map-Information".huvudstäder[$"../Lag välgare".lag],$"../Lag välgare".lag,10)
+		$"../../Pruduktion".pengar[$"../Lag välgare".lag] -= 10
+		$"../../Pruduktion".update()

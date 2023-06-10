@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c13mr4q4pptuy"]
+[gd_scene load_steps=19 format=3 uid="uid://c13mr4q4pptuy"]
 
 [ext_resource type="Script" path="res://Game World.gd" id="1_b0jhh"]
 [ext_resource type="Texture2D" uid="uid://mviff3uovf7x" path="res://Map/Colors.png" id="1_ujkl7"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cj72e66icfi2m" path="res://selector.tscn" id="6_738ul"]
 [ext_resource type="PackedScene" uid="uid://dsu47wmi2sb5n" path="res://byggare.tscn" id="6_jcc8l"]
 [ext_resource type="PackedScene" uid="uid://buyts12hlcsmy" path="res://pengar.tscn" id="7_e3xbi"]
+[ext_resource type="PackedScene" uid="uid://tckjbu3ktf7k" path="res://Soldater.tscn" id="9_lkkbn"]
 [ext_resource type="Script" path="res://Pruduktion.gd" id="9_rppaa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xlxqf"]
@@ -183,6 +184,8 @@ metadata/_edit_use_anchors_ = true
 [node name="Byggare" parent="CanvasLayer" instance=ExtResource("6_jcc8l")]
 
 [node name="Pengar" parent="CanvasLayer" instance=ExtResource("7_e3xbi")]
+offset_top = -9.0
+offset_bottom = -9.0
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
@@ -190,14 +193,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -180.0
-offset_right = 57.5
-offset_bottom = -154.0
+offset_left = -312.0
+offset_top = -117.0
+offset_right = 312.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 72
 text = "Välj en huvudstad"
+
+[node name="Soldater" parent="CanvasLayer" instance=ExtResource("9_lkkbn")]
+offset_top = 84.0
+offset_bottom = 84.0
 
 [node name="Unit Maneger" type="Node" parent="."]
 script = ExtResource("5_pgmje")

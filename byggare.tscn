@@ -1,6 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsu47wmi2sb5n"]
+[gd_scene load_steps=13 format=3 uid="uid://dsu47wmi2sb5n"]
 
 [ext_resource type="Script" path="res://byggare.gd" id="1_frwt1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riomn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yv5el"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gulf5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_proux"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2d8fe"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_pmlfn"]
 
@@ -42,20 +52,6 @@ offset_top = 5.0
 offset_right = 105.0
 offset_bottom = 45.0
 
-[node name="GubbarCheckButton" type="CheckButton" parent="ColorRect/Gubbar"]
-layout_mode = 0
-offset_right = 100.0
-offset_bottom = 40.0
-theme_override_icons/checked = SubResource("ImageTexture_pmlfn")
-theme_override_icons/checked_disabled = SubResource("ImageTexture_786g4")
-theme_override_icons/unchecked = SubResource("ImageTexture_myyvn")
-theme_override_icons/unchecked_disabled = SubResource("ImageTexture_tmagq")
-theme_override_icons/checked_mirrored = SubResource("ImageTexture_wl4io")
-theme_override_icons/checked_disabled_mirrored = SubResource("ImageTexture_wl4io")
-theme_override_icons/unchecked_mirrored = SubResource("ImageTexture_wl4io")
-theme_override_icons/unchecked_disabled_mirrored = SubResource("ImageTexture_wl4io")
-button_group = SubResource("ButtonGroup_wboq2")
-
 [node name="Label" type="Label" parent="ColorRect/Gubbar"]
 layout_mode = 1
 anchors_preset = 8
@@ -72,6 +68,16 @@ grow_vertical = 2
 text = "Units"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GubbarButton" type="Button" parent="ColorRect/Gubbar"]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 40.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_riomn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yv5el")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gulf5")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_proux")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2d8fe")
 
 [node name="Pruducton" type="Panel" parent="ColorRect"]
 custom_minimum_size = Vector2(100, 40)
@@ -229,7 +235,7 @@ grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="ColorRect/Gubbar/GubbarCheckButton" to="." method="_on_gubbar_check_button_pressed"]
+[connection signal="pressed" from="ColorRect/Gubbar/GubbarButton" to="." method="_on_gubbar_button_pressed"]
 [connection signal="pressed" from="ColorRect/Pruducton/PruductonCheckButton" to="." method="_on_pruducton_check_button_pressed"]
 [connection signal="pressed" from="ColorRect/försvar/försvarCheckButton" to="." method="_on_frsvar_check_button_pressed"]
 [connection signal="pressed" from="ColorRect/hastighet/hastighetCheckButton" to="." method="_on_hastighet_check_button_pressed"]

@@ -12,8 +12,10 @@ var colors: Array
 var sizes: Array
 var schedules: Array
 var scheduleTimers: Array
+var antalGubbar: Array
 
 func ta_bort_gubbe(gubbe: int):
+	
 	nodes[gubbe].queue_free()
 #	arrows[gubbe].queue_free()
 	
@@ -35,6 +37,7 @@ func ta_bort_gubbe(gubbe: int):
 		if nodes[i].index > gubbe:
 			nodes[i].index -= 1
 func newUnit(position: Vector2i,color,size):
+	
 	nodes.append(null)
 	nodes[len(nodes)-1] = unit.instantiate()
 	$"..".add_child.call_deferred(nodes[len(nodes)-1])
@@ -47,7 +50,7 @@ func newUnit(position: Vector2i,color,size):
 	positions.append(position)
 	
 	colors.append(color)
-	nodes[len(nodes)-1].color = color-1
+	nodes[len(nodes)-1].color = color
 	sizes.append(size)
 	
 	schedules.append([])
@@ -76,6 +79,7 @@ func setSchedule(unit:int, list:Array):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	$"../CanvasLayer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[$"../CanvasLayer/Lag välgare".lag])
 	for i in range(len(nodes)):
 		
 		nodes[i].size = sizes[i]
@@ -124,11 +128,5 @@ func _process(delta):
 		if sizes[i] < 1:
 			ta_bort_gubbe(i)
 func _ready():
-#	newUnit(Vector2i(0,0),1,300)
-#	setSchedule(0,[
-#				Vector2i(20,0)])
-#
-#	newUnit(Vector2i(30,0),2,3000)
-#	setSchedule(1,[
-#				Vector2i(10,0)])
-	pass
+	antalGubbar.resize($"../CanvasLayer/Lag välgare".antal_lag)
+	antalGubbar.fill(0)
