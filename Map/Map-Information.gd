@@ -1,5 +1,6 @@
 extends Node
 
+var huvudstäder = []
 
 @export var size: Vector2i
 
@@ -22,13 +23,14 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	huvudstäder.resize($"../CanvasLayer/Lag välgare".antal_lag)
 	rng.randomize()
-	for x in range(size.x-1):
+	for x in range(size.x):
 		speed.append([])
 		production.append([])
 		defence.append([])
 		land.append([])
-		for y in range(size.y-1):
+		for y in range(size.y):
 			speed[x].append((speedNoise.get_noise_2d(x,y)+1)*0.5)
 			production[x].append((productionNoise.get_noise_2d(x,y)+1)*0.5)
 			defence[x].append((defenceNoise.get_noise_2d(x,y)+1)*0.5)

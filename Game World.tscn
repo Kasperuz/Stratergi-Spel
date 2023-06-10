@@ -1,10 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://cx4f35n7t1ej7"]
+[gd_scene load_steps=18 format=3 uid="uid://c13mr4q4pptuy"]
 
+[ext_resource type="Script" path="res://Game World.gd" id="1_b0jhh"]
 [ext_resource type="Texture2D" uid="uid://mviff3uovf7x" path="res://Map/Colors.png" id="1_ujkl7"]
 [ext_resource type="Script" path="res://Map/Map-Information.gd" id="2_mqlye"]
 [ext_resource type="Script" path="res://CameraControler.gd" id="3_1twde"]
-[ext_resource type="PackedScene" uid="uid://b3ykuka3lpud7" path="res://Map mode ui/map_mode_ui.tscn" id="4_2hdvm"]
+[ext_resource type="PackedScene" uid="uid://b3ykuka3lpud7" path="res://Ui/Map mode ui/map_mode_ui.tscn" id="4_2hdvm"]
+[ext_resource type="PackedScene" uid="uid://byk5j07hqwxvy" path="res://Ui/lag väljare/lag_välgare.tscn" id="5_3gqbk"]
 [ext_resource type="Script" path="res://Unit/Unit Maneger.gd" id="5_pgmje"]
+[ext_resource type="PackedScene" uid="uid://cj72e66icfi2m" path="res://selector.tscn" id="6_738ul"]
+[ext_resource type="PackedScene" uid="uid://dsu47wmi2sb5n" path="res://byggare.tscn" id="6_jcc8l"]
+[ext_resource type="PackedScene" uid="uid://buyts12hlcsmy" path="res://pengar.tscn" id="7_e3xbi"]
+[ext_resource type="Script" path="res://Pruduktion.gd" id="9_rppaa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xlxqf"]
 texture = ExtResource("1_ujkl7")
@@ -110,30 +116,58 @@ texture_region_size = Vector2i(32, 32)
 8:9/0 = 0
 9:9/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oxilu"]
+texture = ExtResource("1_ujkl7")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/modulate = Color(1, 0.388235, 0.388235, 0.678431)
+
 [sub_resource type="TileSet" id="TileSet_b56wi"]
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_xlxqf")
+sources/1 = SubResource("TileSetAtlasSource_oxilu")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xgkfq"]
+frequency = 0.033
+fractal_type = 2
+fractal_lacunarity = 2.848
+fractal_gain = 0.715
+fractal_weighted_strength = 1.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ljisb"]
 seed = 1
+frequency = 0.042
+fractal_lacunarity = 3.134
+fractal_gain = 0.535
+fractal_weighted_strength = 0.9
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5gbpo"]
-seed = 2
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_p42ox"]
+frequency = 0.055
+fractal_type = 2
+fractal_lacunarity = 2.618
+fractal_gain = 0.786
+fractal_weighted_strength = 1.0
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_b0jhh")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_b56wi")
 format = 2
+layer_1/name = "rita"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
 
 [node name="Map-Information" type="Node" parent="."]
 script = ExtResource("2_mqlye")
 size = Vector2i(100, 100)
 speedNoise = SubResource("FastNoiseLite_xgkfq")
 productionNoise = SubResource("FastNoiseLite_ljisb")
-defenceNoise = SubResource("FastNoiseLite_5gbpo")
+defenceNoise = SubResource("FastNoiseLite_p42ox")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.901, 0.901)
@@ -144,5 +178,34 @@ script = ExtResource("3_1twde")
 [node name="Map mode ui" parent="CanvasLayer" instance=ExtResource("4_2hdvm")]
 metadata/_edit_use_anchors_ = true
 
+[node name="Lag välgare" parent="CanvasLayer" instance=ExtResource("5_3gqbk")]
+
+[node name="Byggare" parent="CanvasLayer" instance=ExtResource("6_jcc8l")]
+
+[node name="Pengar" parent="CanvasLayer" instance=ExtResource("7_e3xbi")]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -180.0
+offset_right = 57.5
+offset_bottom = -154.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 72
+text = "Välj en huvudstad"
+
 [node name="Unit Maneger" type="Node" parent="."]
 script = ExtResource("5_pgmje")
+
+[node name="Selector" parent="." instance=ExtResource("6_738ul")]
+
+[node name="Pruduktion" type="Timer" parent="."]
+autostart = true
+script = ExtResource("9_rppaa")
+
+[connection signal="timeout" from="Pruduktion" to="Pruduktion" method="_on_timeout"]

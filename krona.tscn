@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cgel1t0dofgth"]
+
+[node name="Krona" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, 8)
+color = Color(0.721569, 0.623529, 0.196078, 1)
+polygon = PackedVector2Array(10, -20, 5, -10, 0, -20, -5, -10, -10, -20, -10, 0, 10, 0)
