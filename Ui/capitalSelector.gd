@@ -1,5 +1,5 @@
 extends Node2D
-var krona = preload("res://krona.tscn")
+var krona = preload("res://Ui/capitalCrown.tscn")
 var antal_click = 0
 var huvudstadsPosition = Vector2i(0,0)
 
@@ -7,7 +7,7 @@ var huvudstadsPosition = Vector2i(0,0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if $"Map-Information".huvudstäder[$"CanvasLayer/Lag välgare".lag] == Vector2i(-1,-1):
+	if $"Map-Information".capitals[$"CanvasLayer/Lag välgare".lag] == Vector2i(-1,-1):
 		$CanvasLayer/Label.visible = true
 		if Input.is_action_just_pressed("Left click"):
 			antal_click += 1
@@ -17,7 +17,7 @@ func _process(delta):
 					$CanvasLayer/Label.visible = false
 					$CanvasLayer/Label.text = "Välj en huvudstad"
 					antal_click = -1
-					$"Map-Information".huvudstäder[$"CanvasLayer/Lag välgare".lag] = huvudstadsPosition
+					$"Map-Information".capitals[$"CanvasLayer/Lag välgare".lag] = huvudstadsPosition
 					var instance = krona.instantiate()
 					instance.set_position($TileMap.map_to_local(huvudstadsPosition))
 					add_child(instance)

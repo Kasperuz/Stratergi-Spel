@@ -1,6 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://dsu47wmi2sb5n"]
+[gd_scene load_steps=13 format=3 uid="uid://dcvv4pu1mlax5"]
 
-[ext_resource type="Script" path="res://byggare.gd" id="1_frwt1"]
+[ext_resource type="Script" path="res://Ui/Build menu/buildMenu.gd" id="1_aits0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_riomn"]
 
@@ -31,7 +31,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
-script = ExtResource("1_frwt1")
+script = ExtResource("1_aits0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(110, 0)

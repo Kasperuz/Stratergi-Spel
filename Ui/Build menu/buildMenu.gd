@@ -29,6 +29,6 @@ func _on_check_button_pressed():
 func _on_gubbar_button_pressed():
 	print($"../../Pruduktion".pengar)
 	if $"../../Pruduktion".pengar[$"../Lag välgare".lag] >= 10:
-		$"../../Unit Maneger".newUnit($"../../Map-Information".huvudstäder[$"../Lag välgare".lag],$"../Lag välgare".lag,10)
+		$"../../Unit Maneger".newUnit($"../../Map-Information".capitals[$"../Lag välgare".lag],$"../Lag välgare".lag,10)
 		$"../../Pruduktion".pengar[$"../Lag välgare".lag] -= 10
 		$"../../Pruduktion".update()

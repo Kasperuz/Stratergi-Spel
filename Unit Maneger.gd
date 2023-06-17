@@ -2,12 +2,10 @@ class_name UnitManeger
 
 extends Node
 
-const unit = preload("res://Unit/Unit.tscn")
-const arrow = preload("res://Unit/Arrow/Arrow.tscn")
+const unit = preload("res://Ui/Unit/unit.tscn")
 
 var positions: Array
 var nodes: Array
-var arrows: Array
 var colors: Array
 var sizes: Array
 var schedules: Array
@@ -17,11 +15,9 @@ var antalGubbar: Array
 func ta_bort_gubbe(gubbe: int):
 	
 	nodes[gubbe].queue_free()
-#	arrows[gubbe].queue_free()
 	
 	positions.remove_at(gubbe)
 	nodes.remove_at(gubbe)
-	arrows.remove_at(gubbe)
 	colors.remove_at(gubbe)
 	sizes.remove_at(gubbe)
 	schedules.remove_at(gubbe)
@@ -43,7 +39,6 @@ func newUnit(position: Vector2i,color,size):
 	$"..".add_child.call_deferred(nodes[len(nodes)-1])
 	nodes[len(nodes)-1].index = len(nodes)-1
 	
-	arrows.append(null)
 	#arrows[len(arrows)-1] = arrow.instantiate()
 	#$"..".add_child.call_deferred(arrows[len(arrows)-1])
 	
@@ -79,7 +74,7 @@ func setSchedule(unit:int, list:Array):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$"../CanvasLayer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[$"../CanvasLayer/Lag välgare".lag])
+	$"../CanvasLayer/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[$"../CanvasLayer/Lag välgare".lag])
 	for i in range(len(nodes)):
 		
 		nodes[i].size = sizes[i]

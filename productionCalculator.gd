@@ -21,4 +21,4 @@ func _on_timeout():
 		pengar[i] -= ($"../Unit Maneger".antalGubbar[i] / 10)
 		
 func update():
-	$"../CanvasLayer/Pengar/Label".text = "Pengar: "+str(floor(pengar[$"../CanvasLayer/Lag välgare".lag]))
+	$"../CanvasLayer/VBoxContainer/Pengar/Label".text = "Pengar: "+str(floor(pengar[$"../CanvasLayer/Lag välgare".lag]))

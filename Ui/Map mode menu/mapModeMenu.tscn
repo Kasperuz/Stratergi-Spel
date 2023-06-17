@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3ykuka3lpud7"]
+[gd_scene load_steps=4 format=3 uid="uid://dk05nxair44tf"]
 
-[ext_resource type="Script" path="res://Ui/Map mode ui/map_mode_ui.gd" id="1_duv1s"]
-[ext_resource type="ButtonGroup" uid="uid://dns34h5va2j75" path="res://Ui/Map mode ui/Checkbox button grup.tres" id="2_6gnb7"]
+[ext_resource type="Script" path="res://Ui/Map mode menu/mapModeMenu.gd" id="1_hdaac"]
+[ext_resource type="ButtonGroup" uid="uid://dns34h5va2j75" path="res://Ui/Map mode menu/mapModeButtonGroup.tres" id="2_h1h2u"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ev0df"]
 
 [node name="Map mode ui" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_duv1s")
+script = ExtResource("1_hdaac")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -25,7 +25,7 @@ anchor_bottom = 0.397744
 grow_vertical = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ev0df")
 button_pressed = true
-button_group = ExtResource("2_6gnb7")
+button_group = ExtResource("2_h1h2u")
 text = "Speed"
 flat = true
 metadata/_edit_use_anchors_ = true
@@ -39,7 +39,7 @@ anchor_right = 1.32857
 anchor_bottom = 0.683459
 grow_horizontal = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ev0df")
-button_group = ExtResource("2_6gnb7")
+button_group = ExtResource("2_h1h2u")
 text = "Production"
 flat = true
 metadata/_edit_use_anchors_ = true
@@ -52,7 +52,7 @@ anchor_top = 0.642857
 anchor_right = 0.871429
 anchor_bottom = 0.969173
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ev0df")
-button_group = ExtResource("2_6gnb7")
+button_group = ExtResource("2_h1h2u")
 text = "Defence"
 flat = true
 metadata/_edit_use_anchors_ = true

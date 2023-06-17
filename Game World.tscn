@@ -1,20 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://c13mr4q4pptuy"]
+[gd_scene load_steps=19 format=3 uid="uid://bwi5d7wpqyosh"]
 
-[ext_resource type="Script" path="res://Game World.gd" id="1_b0jhh"]
-[ext_resource type="Texture2D" uid="uid://mviff3uovf7x" path="res://Map/Colors.png" id="1_ujkl7"]
-[ext_resource type="Script" path="res://Map/Map-Information.gd" id="2_mqlye"]
-[ext_resource type="Script" path="res://CameraControler.gd" id="3_1twde"]
-[ext_resource type="PackedScene" uid="uid://b3ykuka3lpud7" path="res://Ui/Map mode ui/map_mode_ui.tscn" id="4_2hdvm"]
-[ext_resource type="PackedScene" uid="uid://byk5j07hqwxvy" path="res://Ui/lag väljare/lag_välgare.tscn" id="5_3gqbk"]
-[ext_resource type="Script" path="res://Unit/Unit Maneger.gd" id="5_pgmje"]
-[ext_resource type="PackedScene" uid="uid://cj72e66icfi2m" path="res://selector.tscn" id="6_738ul"]
-[ext_resource type="PackedScene" uid="uid://dsu47wmi2sb5n" path="res://byggare.tscn" id="6_jcc8l"]
-[ext_resource type="PackedScene" uid="uid://buyts12hlcsmy" path="res://pengar.tscn" id="7_e3xbi"]
-[ext_resource type="PackedScene" uid="uid://tckjbu3ktf7k" path="res://Soldater.tscn" id="9_lkkbn"]
-[ext_resource type="Script" path="res://Pruduktion.gd" id="9_rppaa"]
+[ext_resource type="Script" path="res://Ui/capitalSelector.gd" id="1_nkwt0"]
+[ext_resource type="Texture2D" uid="uid://mviff3uovf7x" path="res://Ui/tileMapColors.png" id="2_ytybg"]
+[ext_resource type="Script" path="res://Map-Information.gd" id="3_p0koa"]
+[ext_resource type="PackedScene" uid="uid://dk05nxair44tf" path="res://Ui/Map mode menu/mapModeMenu.tscn" id="4_2hdvm"]
+[ext_resource type="Script" path="res://Ui/cameraControler.gd" id="4_5ef33"]
+[ext_resource type="PackedScene" uid="uid://blsdtk7grws66" path="res://Ui/Selector/selector.tscn" id="6_738ul"]
+[ext_resource type="PackedScene" uid="uid://d4kp1danxelvu" path="res://Ui/Team selector/teamSelector.tscn" id="7_e7s0v"]
+[ext_resource type="Script" path="res://Unit Maneger.gd" id="7_h3x76"]
+[ext_resource type="PackedScene" uid="uid://n4t4hypx42pt" path="res://Ui/Displayers/goldDisplay.tscn" id="7_seo7q"]
+[ext_resource type="Script" path="res://productionCalculator.gd" id="9_1jmm2"]
+[ext_resource type="PackedScene" uid="uid://dhob8xmh8rvfh" path="res://Ui/Displayers/unitsDisplay.tscn" id="9_lkkbn"]
+[ext_resource type="PackedScene" uid="uid://dcvv4pu1mlax5" path="res://Ui/Build menu/buildMenu.tscn" id="9_p3qar"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xlxqf"]
-texture = ExtResource("1_ujkl7")
+texture = ExtResource("2_ytybg")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 1:0/0 = 0
@@ -116,9 +116,19 @@ texture_region_size = Vector2i(32, 32)
 7:9/0 = 0
 8:9/0 = 0
 9:9/0 = 0
+10:0/0 = 0
+10:1/0 = 0
+10:2/0 = 0
+10:3/0 = 0
+10:4/0 = 0
+10:5/0 = 0
+10:6/0 = 0
+10:7/0 = 0
+10:8/0 = 0
+10:9/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oxilu"]
-texture = ExtResource("1_ujkl7")
+texture = ExtResource("2_ytybg")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/modulate = Color(1, 0.388235, 0.388235, 0.678431)
@@ -150,7 +160,7 @@ fractal_gain = 0.786
 fractal_weighted_strength = 1.0
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_b0jhh")
+script = ExtResource("1_nkwt0")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_b56wi")
@@ -164,7 +174,7 @@ layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array()
 
 [node name="Map-Information" type="Node" parent="."]
-script = ExtResource("2_mqlye")
+script = ExtResource("3_p0koa")
 size = Vector2i(100, 100)
 speedNoise = SubResource("FastNoiseLite_xgkfq")
 productionNoise = SubResource("FastNoiseLite_ljisb")
@@ -172,20 +182,12 @@ defenceNoise = SubResource("FastNoiseLite_p42ox")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.901, 0.901)
-script = ExtResource("3_1twde")
+script = ExtResource("4_5ef33")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Map mode ui" parent="CanvasLayer" instance=ExtResource("4_2hdvm")]
 metadata/_edit_use_anchors_ = true
-
-[node name="Lag välgare" parent="CanvasLayer" instance=ExtResource("5_3gqbk")]
-
-[node name="Byggare" parent="CanvasLayer" instance=ExtResource("6_jcc8l")]
-
-[node name="Pengar" parent="CanvasLayer" instance=ExtResource("7_e3xbi")]
-offset_top = -9.0
-offset_bottom = -9.0
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 anchors_preset = 8
@@ -202,17 +204,33 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 72
 text = "Välj en huvudstad"
 
-[node name="Soldater" parent="CanvasLayer" instance=ExtResource("9_lkkbn")]
-offset_top = 84.0
-offset_bottom = 84.0
+[node name="Lag välgare" parent="CanvasLayer" instance=ExtResource("7_e7s0v")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -386.0
+offset_bottom = 219.0
+grow_horizontal = 0
+
+[node name="Soldater" parent="CanvasLayer/VBoxContainer" instance=ExtResource("9_lkkbn")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Pengar" parent="CanvasLayer/VBoxContainer" instance=ExtResource("7_seo7q")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Byggare" parent="CanvasLayer" instance=ExtResource("9_p3qar")]
 
 [node name="Unit Maneger" type="Node" parent="."]
-script = ExtResource("5_pgmje")
+script = ExtResource("7_h3x76")
 
 [node name="Selector" parent="." instance=ExtResource("6_738ul")]
 
 [node name="Pruduktion" type="Timer" parent="."]
 autostart = true
-script = ExtResource("9_rppaa")
+script = ExtResource("9_1jmm2")
 
 [connection signal="timeout" from="Pruduktion" to="Pruduktion" method="_on_timeout"]

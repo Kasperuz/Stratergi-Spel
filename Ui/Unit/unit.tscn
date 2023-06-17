@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://caaxm1lw5h44v"]
+[gd_scene load_steps=4 format=3 uid="uid://ddes6v2gf71m4"]
 
-[ext_resource type="Script" path="res://Unit/Unit.gd" id="1_qncsg"]
-[ext_resource type="Texture2D" uid="uid://bdnr6n4w7xrx0" path="res://Unit/Units.png" id="2_pj0li"]
+[ext_resource type="Script" path="res://Ui/Unit/unit.gd" id="1_4ub71"]
+[ext_resource type="Texture2D" uid="uid://bdnr6n4w7xrx0" path="res://Ui/unitColors.png" id="2_2v0p1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kg8p"]
 
 [node name="Unit" type="Node2D"]
-script = ExtResource("1_qncsg")
+script = ExtResource("1_4ub71")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_pj0li")
+texture = ExtResource("2_2v0p1")
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
