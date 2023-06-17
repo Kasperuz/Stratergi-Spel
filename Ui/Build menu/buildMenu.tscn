@@ -25,7 +25,6 @@
 [sub_resource type="ButtonGroup" id="ButtonGroup_wboq2"]
 
 [node name="Byggare" type="Control"]
-custom_minimum_size = Vector2(0, 200)
 layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
@@ -34,14 +33,14 @@ grow_vertical = 0
 script = ExtResource("1_aits0")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(110, 0)
+custom_minimum_size = Vector2(110, 230.903)
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -74.0
+offset_top = -30.0
 offset_right = 110.0
-offset_bottom = -44.0
-grow_vertical = 2
+grow_vertical = 0
 color = Color(1, 1, 1, 0.431373)
 
 [node name="Gubbar" type="Panel" parent="ColorRect"]

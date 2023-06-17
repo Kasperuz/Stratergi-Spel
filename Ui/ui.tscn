@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://dydycokwq078"]
+
+[ext_resource type="PackedScene" uid="uid://dk05nxair44tf" path="res://Ui/Map mode menu/mapModeMenu.tscn" id="1_2q68w"]
+[ext_resource type="PackedScene" uid="uid://d4kp1danxelvu" path="res://Ui/Team selector/teamSelector.tscn" id="2_p5a0p"]
+[ext_resource type="PackedScene" uid="uid://dhob8xmh8rvfh" path="res://Ui/Displayers/unitsDisplay.tscn" id="3_junok"]
+[ext_resource type="PackedScene" uid="uid://n4t4hypx42pt" path="res://Ui/Displayers/goldDisplay.tscn" id="4_4h15n"]
+[ext_resource type="PackedScene" uid="uid://dcvv4pu1mlax5" path="res://Ui/Build menu/buildMenu.tscn" id="5_05iiv"]
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Map mode ui" parent="." instance=ExtResource("1_2q68w")]
+
+[node name="Message label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -117.0
+offset_right = 312.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 72
+text = "Välj en huvudstad"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lag välgare" parent="." instance=ExtResource("2_p5a0p")]
+layout_mode = 1
+offset_left = -110.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -386.0
+offset_bottom = 219.0
+grow_horizontal = 0
+
+[node name="Soldater" parent="VBoxContainer" instance=ExtResource("3_junok")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Pengar" parent="VBoxContainer" instance=ExtResource("4_4h15n")]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Byggare" parent="." instance=ExtResource("5_05iiv")]
+layout_mode = 1
+offset_top = -200.0

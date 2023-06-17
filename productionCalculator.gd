@@ -3,7 +3,7 @@ extends Timer
 var pengar = []
 
 func _ready():
-	pengar.resize($"../CanvasLayer/Lag välgare".antal_lag)
+	pengar.resize($"../CanvasLayer/Ui/Lag välgare".antal_lag)
 	pengar.fill(10)
 
 func _on_timeout():
@@ -17,8 +17,8 @@ func _on_timeout():
 				pengar[$"../Map-Information".land[x][y]] += $"../Map-Information".production[x][y] * 0.01 
 				update()
 	print("Pengar: ",pengar," AntalGubbar: ",$"../Unit Maneger".antalGubbar)
-	for i in range(0,$"../CanvasLayer/Lag välgare".antal_lag):
+	for i in range(0,$"../CanvasLayer/Ui/Lag välgare".antal_lag):
 		pengar[i] -= ($"../Unit Maneger".antalGubbar[i] / 10)
 		
 func update():
-	$"../CanvasLayer/VBoxContainer/Pengar/Label".text = "Pengar: "+str(floor(pengar[$"../CanvasLayer/Lag välgare".lag]))
+	$"../CanvasLayer/Ui/VBoxContainer/Pengar/Label".text = "Pengar: "+str(floor(pengar[$"../CanvasLayer/Ui/Lag välgare".lag]))

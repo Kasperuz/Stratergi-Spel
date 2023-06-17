@@ -74,7 +74,7 @@ func setSchedule(unit:int, list:Array):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$"../CanvasLayer/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[$"../CanvasLayer/Lag välgare".lag])
+	$"../CanvasLayer/Ui/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[$"../CanvasLayer/Ui/Lag välgare".lag])
 	for i in range(len(nodes)):
 		
 		nodes[i].size = sizes[i]
@@ -123,5 +123,5 @@ func _process(delta):
 		if sizes[i] < 1:
 			ta_bort_gubbe(i)
 func _ready():
-	antalGubbar.resize($"../CanvasLayer/Lag välgare".antal_lag)
+	antalGubbar.resize($"../CanvasLayer/Ui/Lag välgare".antal_lag)
 	antalGubbar.fill(0)

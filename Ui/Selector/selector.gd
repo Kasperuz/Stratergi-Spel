@@ -20,7 +20,7 @@ func _process(delta):
 		$ColorRect.scale = Vector2(get_global_mouse_position().x-start_pos.x,get_global_mouse_position().y-start_pos.y)
 		selected = []
 		for i in get_overlapping_areas():
-			if i.get_parent().color == $"../CanvasLayer/Lag välgare".lag:
+			if i.get_parent().color == $"../CanvasLayer/Ui/Lag välgare".lag:
 				selected.append(i.get_parent().index)
 	else:
 		visible = false

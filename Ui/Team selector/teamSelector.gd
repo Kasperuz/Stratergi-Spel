@@ -7,5 +7,5 @@ func _process(delta):
 	for i in range(1,antal_lag):
 		if get_node("BoxContainer/"+str(i)+"/VSeparator/CheckButton").button_pressed:
 			lag = i
-			$"../../Pruduktion".update()
+			$"../../../Pruduktion".update()
 			break

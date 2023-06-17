@@ -23,7 +23,7 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	capitals.resize($"../CanvasLayer/Lag välgare".antal_lag)
+	capitals.resize($"../CanvasLayer/Ui/Lag välgare".antal_lag)
 	capitals.fill(Vector2i(-1,-1))
 	rng.randomize()
 	for x in range(size.x):
@@ -42,15 +42,15 @@ func updateTileMap():
 	for x in range(size.x -1):
 		for y in range(size.y -1):
 			var tempCordinate: int
-			if $"../CanvasLayer/Map mode ui".mapMode == mapModes.speed:
+			if $"../CanvasLayer/Ui/Map mode ui".mapMode == mapModes.speed:
 				tempCordinate = floor(speed[x][y] * 10)
 				if (tempCordinate > 10):
 					tempCordinate = 10
-			elif $"../CanvasLayer/Map mode ui".mapMode == mapModes.production:
+			elif $"../CanvasLayer/Ui/Map mode ui".mapMode == mapModes.production:
 				tempCordinate = floor(production[x][y] * 10)
 				if (tempCordinate > 10):
 					tempCordinate = 0
-			elif $"../CanvasLayer/Map mode ui".mapMode == mapModes.defence:
+			elif $"../CanvasLayer/Ui/Map mode ui".mapMode == mapModes.defence:
 				tempCordinate = floor(defence[x][y] * 10)
 				if (tempCordinate > 10):
 					tempCordinate = 10
