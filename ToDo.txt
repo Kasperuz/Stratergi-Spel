@@ -1,0 +1,23 @@
+Mål: Multiplayer
+	
+	1. Refaktorisera (Städa up)
+
+		1. Click state variabel
+	
+	2. Separera Client och Server kod och variabler i olika filer
+
+	3. Start meny inför multiplayer
+
+	3. Multiplayer grund
+
+		1. Skapa server eller client
+
+		2. Testa multiplayer dummy variabel
+
+		3. Tildela lag
+
+		4. Gemensam karta
+	
+		5. Synkronisera gubbarna
+		
+	

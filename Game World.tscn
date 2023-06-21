@@ -193,6 +193,8 @@ script = ExtResource("7_h3x76")
 autostart = true
 script = ExtResource("9_1jmm2")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+
 [connection signal="timeout" from="Pruduktion" to="Pruduktion" method="_on_timeout"]
 
 [editable path="CanvasLayer/Ui"]
