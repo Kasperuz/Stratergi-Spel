@@ -23,7 +23,7 @@ var rng = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	capitals.resize($"../CanvasLayer/Ui/Lag välgare".antal_lag)
+	capitals.resize(MultiplayerManager.antal_lag)
 	capitals.fill(Vector2i(-1,-1))
 	rng.randomize()
 	for x in range(size.x):

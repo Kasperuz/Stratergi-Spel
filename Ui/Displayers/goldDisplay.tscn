@@ -1,9 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://n4t4hypx42pt"]
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_y3jro"]
-properties/0/path = NodePath("Label:text")
-properties/0/spawn = true
-properties/0/sync = true
+[gd_scene format=3 uid="uid://n4t4hypx42pt"]
 
 [node name="Pengar" type="Control"]
 layout_mode = 3
@@ -22,6 +17,3 @@ offset_bottom = 100.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 71
 text = "Pengar: 0"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_y3jro")

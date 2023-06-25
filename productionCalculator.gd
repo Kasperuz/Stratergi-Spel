@@ -3,7 +3,7 @@ extends Timer
 var pengar = []
 
 func _ready():
-	pengar.resize($"../CanvasLayer/Ui/Lag välgare".antal_lag)
+	pengar.resize(MultiplayerManager.antal_lag)
 	pengar.fill(10)
 
 func _on_timeout():
@@ -16,9 +16,9 @@ func _on_timeout():
 			if !$"../Map-Information".land[x][y] == 0:
 				pengar[$"../Map-Information".land[x][y]] += $"../Map-Information".production[x][y] * 0.01 
 				update()
-	print("Pengar: ",pengar," AntalGubbar: ",$"../Unit Maneger".antalGubbar)
-	for i in range(0,$"../CanvasLayer/Ui/Lag välgare".antal_lag):
+	#print("Pengar: ",pengar," AntalGubbar: ",$"../Unit Maneger".antalGubbar)
+	for i in range(0,MultiplayerManager.antal_lag):
 		pengar[i] -= ($"../Unit Maneger".antalGubbar[i] / 10)
 		
 func update():
-	$"../CanvasLayer/Ui/VBoxContainer/Pengar/Label".text = "Pengar: "+str(floor(pengar[$"../CanvasLayer/Ui/Lag välgare".lag]))
+	$"../CanvasLayer/Ui/VBoxContainer/Pengar/Label".text = "Pengar: "+str(floor(pengar[MultiplayerManager.nuvarande_lag]))

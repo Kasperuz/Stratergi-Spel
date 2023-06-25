@@ -12,6 +12,13 @@ var schedules: Array
 var scheduleTimers: Array
 var antalGubbar: Array
 
+func syncSetSize(unit,size):
+	setSize(unit,size)
+	rpc("setSize",unit,size)
+@rpc("any_peer")
+func setSize(unit,size):
+	sizes[unit] = size
+
 func ta_bort_gubbe(gubbe: int):
 	
 	nodes[gubbe].queue_free()
@@ -32,8 +39,14 @@ func ta_bort_gubbe(gubbe: int):
 	for i in range(len(nodes)):
 		if nodes[i].index > gubbe:
 			nodes[i].index -= 1
+func syncNewUnit(position: Vector2i,color,size):
+	print("A player with a peer id of: ",multiplayer.get_unique_id(), " has created a new unit at the position of: ", position, " and at the size of: ",size)
+	rpc("newUnit",position,color,size)
+	newUnit(position,color,size)
+		
+@rpc("any_peer")
 func newUnit(position: Vector2i,color,size):
-	
+
 	nodes.append(null)
 	nodes[len(nodes)-1] = unit.instantiate()
 	$"..".add_child.call_deferred(nodes[len(nodes)-1])
@@ -64,8 +77,13 @@ func lineAlgorithm(p1:Vector2i,p2:Vector2i):
 		points.append(Vector2i(round(position)))
 	return points
 	
+func syncSetSchedule(unit:int, list:Array):
+	setSchedule(unit,list)
+	rpc("setSchedule",unit,list)
 	
+@rpc("any_peer")
 func setSchedule(unit:int, list:Array):
+	scheduleTimers[unit] = 0
 	list.insert(0,positions[unit])
 	schedules[unit] = []
 	for i in range(len(list)-1):
@@ -74,7 +92,7 @@ func setSchedule(unit:int, list:Array):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$"../CanvasLayer/Ui/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[$"../CanvasLayer/Ui/Lag välgare".lag])
+	$"../CanvasLayer/Ui/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[MultiplayerManager.nuvarande_lag])
 	for i in range(len(nodes)):
 		
 		nodes[i].size = sizes[i]
@@ -123,5 +141,5 @@ func _process(delta):
 		if sizes[i] < 1:
 			ta_bort_gubbe(i)
 func _ready():
-	antalGubbar.resize($"../CanvasLayer/Ui/Lag välgare".antal_lag)
+	antalGubbar.resize(MultiplayerManager.antal_lag)
 	antalGubbar.fill(0)

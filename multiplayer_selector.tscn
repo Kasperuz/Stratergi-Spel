@@ -11,29 +11,35 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6p5e2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -308.0
-offset_top = -73.0
-offset_right = 308.0
-offset_bottom = 73.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 187.0
 grow_horizontal = 2
-grow_vertical = 2
 
-[node name="server" type="Button" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(0, 92.674)
 layout_mode = 2
-theme_override_font_sizes/font_size = 101
-text = "Server"
 
-[node name="Client" type="Button" parent="HBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 101
-text = "Client"
+theme_override_font_sizes/font_size = 52
+text = "localhost"
+placeholder_text = "Ip:"
 
-[connection signal="pressed" from="HBoxContainer/server" to="." method="_on_server_pressed"]
-[connection signal="pressed" from="HBoxContainer/Client" to="." method="_on_client_pressed"]
+[node name="host" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(143.023, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "Host"
+
+[node name="join" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(129.316, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 52
+text = "Join"
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/host" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/join" to="." method="_on_client_pressed"]

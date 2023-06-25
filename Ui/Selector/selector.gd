@@ -20,7 +20,7 @@ func _process(delta):
 		$ColorRect.scale = Vector2(get_global_mouse_position().x-start_pos.x,get_global_mouse_position().y-start_pos.y)
 		selected = []
 		for i in get_overlapping_areas():
-			if i.get_parent().color == $"../CanvasLayer/Ui/Lag välgare".lag:
+			if i.get_parent().color == MultiplayerManager.nuvarande_lag:
 				selected.append(i.get_parent().index)
 	else:
 		visible = false
@@ -46,15 +46,15 @@ func _process(delta):
 			for i in selected:
 				if curentNewSize >= $"../Unit Maneger".sizes[i]:
 					curentNewSize -= $"../Unit Maneger".sizes[i]
-					$"../Unit Maneger".setSchedule(i,[newPositions[i2]])
+					$"../Unit Maneger".syncSetSchedule(i,[newPositions[i2]])
 				else:
 					if curentNewSize == 0:
 						newSelected.append(i)
 					else:
-						$"../Unit Maneger".newUnit($"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i]-curentNewSize)
-						$"../Unit Maneger".setSchedule(i,[newPositions[i2]])
+						$"../Unit Maneger".syncNewUnit($"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i]-curentNewSize)
+						$"../Unit Maneger".syncSetSchedule(i,[newPositions[i2]])
 						newSelected.append(len($"../Unit Maneger".nodes)-1)
-						$"../Unit Maneger".sizes[i] = curentNewSize
+						$"../Unit Maneger".syncSetSize(i,curentNewSize)
 						curentNewSize = 0
 			selected = newSelected
 			
