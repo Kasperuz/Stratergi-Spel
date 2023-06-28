@@ -4,6 +4,8 @@ extends Node
 
 const unit = preload("res://Ui/Unit/unit.tscn")
 
+var unixTime
+
 var positions: Array
 var nodes: Array
 var colors: Array
@@ -11,6 +13,7 @@ var sizes: Array
 var schedules: Array
 var scheduleTimers: Array
 var antalGubbar: Array
+
 
 func syncSetSize(unit,size):
 	setSize(unit,size)
@@ -78,61 +81,70 @@ func lineAlgorithm(p1:Vector2i,p2:Vector2i):
 	return points
 	
 func syncSetSchedule(unit:int, list:Array):
-	setSchedule(unit,list)
-	rpc("setSchedule",unit,list)
+	var unixTime = Time.get_unix_time_from_system()
+	setSchedule(unit,list, unixTime)
+	rpc("setSchedule",unit,list,unixTime)
 	
 @rpc("any_peer")
-func setSchedule(unit:int, list:Array):
-	scheduleTimers[unit] = 0
+func setSchedule(unit:int, list:Array, unixTime):
+	scheduleTimers[unit] = unixTime + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
 	list.insert(0,positions[unit])
 	schedules[unit] = []
 	for i in range(len(list)-1):
 		schedules[unit].append_array(lineAlgorithm(list[i],list[i+1]))
 
+@rpc("authority")
+func snycUnix(unix):
+	unixTime = unix
+	
+func beräknaStrider(i):
+	var ledig = true
+	for i3 in range(len(positions)):
+		if i3 == i:
+			continue
+		if positions[i3] == schedules[i][0]:
+			if colors[i3] == colors[i]:
+				if len(schedules[i]) == 1 and len(schedules[i3]) == 0:
+					syncSetSize(i,sizes[i] + sizes[i3])
+					syncSetSize(i3,0)
+			else:
+				var försvars_antal = clamp(sizes[i3],0,20)
+				var attack_antal = clamp(sizes[i],0,30)
+				var p = attack_antal / (attack_antal  + försvars_antal * ($"../Map-Information".defence[positions[i3].x][positions[i3].y] + 1))
+				if randf() < p:
+					syncSetSize(i3,sizes[i3] - försvars_antal)
+				else:
+					syncSetSize(i,sizes[i] - attack_antal)
+				ledig = false
+	if ledig:
+		if len(schedules[i]) > 0:
+			positions[i] = schedules[i][0]
+			schedules[i].remove_at(0)
+			scheduleTimers[i] += $"../Map-Information".speed[positions[i].x][positions[i].y]
+		rpc("syncPosition",i, positions[i])
+
+@rpc("authority")
+func syncPosition(unit,position):
+	positions[unit] = position
+		
+		
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if multiplayer.is_server():
+		unixTime = Time.get_unix_time_from_system()
+		rpc("snycUnix",unixTime)
 	$"../CanvasLayer/Ui/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[MultiplayerManager.nuvarande_lag])
 	for i in range(len(nodes)):
 		
 		nodes[i].size = sizes[i]
-#		arrows[i].visible = false
 		if len(schedules[i]) > 0:
-#			arrows[i].visible = true
-#			arrows[i].positions = PackedVector2Array([])
-#			var i2 = len(schedules[i])
-#			for index in range(len(schedules[i])):
-#				i2 -= 1
-#				arrows[i].positions.append($"../TileMap".to_global($"../TileMap".map_to_local(schedules[i][i2])))
-#			arrows[i].update()
-
-			scheduleTimers[i] += delta
-			if scheduleTimers[i] > ($"../Map-Information".speed[positions[i].x][positions[i].y] ** 2) * 7:
-				scheduleTimers[i] = 0
+			print(scheduleTimers[i],"    ",unixTime)
+			if scheduleTimers[i] < unixTime:
+				if multiplayer.is_server():
+					beräknaStrider(i)
 				
-				var ledig = true
-				for i3 in range(len(positions)):
-					if i3 == i:
-						continue
-					if positions[i3] == schedules[i][0]:
-						if colors[i3] == colors[i]:
-							if len(schedules[i]) == 1 and len(schedules[i3]) == 0:
-								sizes[i] += sizes[i3]
-								sizes[i3] = 0
-						else:
-							var försvars_antal = clamp(sizes[i3],0,20)
-							var attack_antal = clamp(sizes[i],0,30)
-							var p = attack_antal / (attack_antal  + försvars_antal * ($"../Map-Information".defence[positions[i3].x][positions[i3].y] + 1))
-							if randf() < p:
-								sizes[i3] -= försvars_antal
-							else:
-								sizes[i] -= attack_antal
-							ledig = false
-					
-				if ledig:
-					positions[i] = schedules[i][0]
-					schedules[i].remove_at(0)
-		
 		nodes[i].global_position = $"../TileMap".to_global($"../TileMap".map_to_local(positions[i]))
 		if $"../Map-Information".land[positions[i].x][positions[i].y] != colors[i]:
 			$"../Map-Information".land[positions[i].x][positions[i].y] = colors[i]
