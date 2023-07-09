@@ -22,6 +22,12 @@ grow_horizontal = 2
 custom_minimum_size = Vector2(0, 92.674)
 layout_mode = 2
 
+[node name="Username" type="TextEdit" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(416.51, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 58
+placeholder_text = "Username"
+
 [node name="TextEdit" type="TextEdit" parent="CenterContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2

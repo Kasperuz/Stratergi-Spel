@@ -81,21 +81,18 @@ func lineAlgorithm(p1:Vector2i,p2:Vector2i):
 	return points
 	
 func syncSetSchedule(unit:int, list:Array):
-	var unixTime = Time.get_unix_time_from_system()
-	setSchedule(unit,list, unixTime)
-	rpc("setSchedule",unit,list,unixTime)
+	setSchedule(unit,list)
+	rpc("setSchedule",unit,list)
 	
 @rpc("any_peer")
-func setSchedule(unit:int, list:Array, unixTime):
-	scheduleTimers[unit] = unixTime + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
-	list.insert(0,positions[unit])
+func setSchedule(unit:int, list:Array):
 	schedules[unit] = []
-	for i in range(len(list)-1):
-		schedules[unit].append_array(lineAlgorithm(list[i],list[i+1]))
-
-@rpc("authority")
-func snycUnix(unix):
-	unixTime = unix
+	if multiplayer.is_server():
+		scheduleTimers[unit] = unixTime + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
+		list.insert(0,positions[unit])
+		for i in range(len(list)-1):
+			schedules[unit].append_array(lineAlgorithm(list[i],list[i+1]))
+	
 	
 func beräknaStrider(i):
 	var ledig = true
@@ -132,17 +129,14 @@ func syncPosition(unit,position):
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if multiplayer.is_server():
-		unixTime = Time.get_unix_time_from_system()
-		rpc("snycUnix",unixTime)
+	unixTime = Time.get_unix_time_from_system()
 	$"../CanvasLayer/Ui/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[MultiplayerManager.nuvarande_lag])
 	for i in range(len(nodes)):
 		
 		nodes[i].size = sizes[i]
-		if len(schedules[i]) > 0:
-			print(scheduleTimers[i],"    ",unixTime)
-			if scheduleTimers[i] < unixTime:
-				if multiplayer.is_server():
+		if multiplayer.is_server():
+			if len(schedules[i]) > 0:
+				if scheduleTimers[i] < unixTime:
 					beräknaStrider(i)
 				
 		nodes[i].global_position = $"../TileMap".to_global($"../TileMap".map_to_local(positions[i]))
