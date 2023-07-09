@@ -47,14 +47,18 @@ func _process(delta):
 				if curentNewSize >= $"../Unit Maneger".sizes[i]:
 					curentNewSize -= $"../Unit Maneger".sizes[i]
 					$"../Unit Maneger".syncSetSchedule(i,[newPositions[i2]])
+					await get_tree().create_timer(0.1).timeout
 				else:
 					if curentNewSize == 0:
 						newSelected.append(i)
 					else:
 						$"../Unit Maneger".syncNewUnit($"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i]-curentNewSize)
+				
 						$"../Unit Maneger".syncSetSchedule(i,[newPositions[i2]])
+						await get_tree().create_timer(0.1).timeout
 						newSelected.append(len($"../Unit Maneger".nodes)-1)
 						$"../Unit Maneger".syncSetSize(i,curentNewSize)
+						await get_tree().create_timer(0.1).timeout
 						curentNewSize = 0
 			selected = newSelected
 			

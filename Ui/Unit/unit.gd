@@ -2,7 +2,7 @@ extends Node2D
 
 @export var color: int
 @export var size: int
-var index: int
+@export var index: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

@@ -1,9 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddes6v2gf71m4"]
+[gd_scene load_steps=5 format=3 uid="uid://ddes6v2gf71m4"]
 
 [ext_resource type="Script" path="res://Ui/Unit/unit.gd" id="1_4ub71"]
 [ext_resource type="Texture2D" uid="uid://bdnr6n4w7xrx0" path="res://Ui/unitColors.png" id="2_2v0p1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kg8p"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8i870"]
+properties/0/path = NodePath(".:color")
+properties/0/spawn = true
+properties/0/sync = false
+properties/0/watch = false
+properties/1/path = NodePath(".:size")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath(".:index")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
 
 [node name="Unit" type="Node2D"]
 script = ExtResource("1_4ub71")
@@ -28,3 +46,6 @@ horizontal_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UnitArea2D"]
 shape = SubResource("RectangleShape2D_6kg8p")
 one_way_collision_margin = 0.0
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8i870")
