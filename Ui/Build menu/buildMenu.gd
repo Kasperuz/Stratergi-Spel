@@ -4,8 +4,8 @@ enum lägen{ inget = 0, pruduktion = 1, försvar = 2, hastighet = 3}
 
 var läge := lägen.inget
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if läge > lägen.inget:
 		pass
 	

@@ -22,7 +22,7 @@ func create_server(PORT,username: String):
 	multiplayer.multiplayer_peer = peer
 	
 	multiplayer.peer_connected.connect(client_connected)
-	multiplayer.peer_disconnected.connect(client_disconnected)
+#	multiplayer.peer_disconnected.connect(client_disconnected)
 	
 	var discoverResult = upnp.discover()
 	if discoverResult == upnp.UPNP_RESULT_SUCCESS:
@@ -53,9 +53,9 @@ func create_server(PORT,username: String):
 	start_game()
 	
 @rpc("any_peer")
-func setName(name: String,team: int):
+func setName(nameIn: String,team: int):
 	if names[team] == null:
-		names[team] = name
+		names[team] = nameIn
 
 @rpc
 func syncaNamn(peer,namn):
@@ -66,8 +66,8 @@ func client_connected(peer_id):
 	print(multiplayer.get_unique_id(),"     ",peer_id)
 	rpc("syncaNamn",peer_id,names)
 	
-func client_disconnected(peer_id):
-	pass
+#func client_disconnected(peer_id):
+#	pass
 
 func create_client(PORT, ip, username):
 	Ip = ip

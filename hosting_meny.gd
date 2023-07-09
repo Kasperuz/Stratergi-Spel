@@ -1,15 +1,15 @@
 extends Control
 
 @rpc("authority")
-func setName(team: int,name: String,host: bool):
-	get_node("VBoxContainer/"+str(team)+"/Label").text = name
+func setName(team: int,nameIn: String):
+	get_node("VBoxContainer/"+str(team)+"/Label").text = nameIn
 	get_node("VBoxContainer/"+str(team)+"/Host").visible = true
 
 func _ready():
 	if multiplayer.is_server():
 		$Button.visible = true
 	$Ip.text = str(MultiplayerManager.Ip)
-func _process(delta):
+func _process(_delta):
 	for i in range(len(MultiplayerManager.names)):
 		if not MultiplayerManager.names[i] == null:
 			var temp = get_node("VBoxContainer/"+str(i))

@@ -3,8 +3,8 @@ extends Area2D
 var selected = []
 var start_pos: Vector2
 var newPositions = []
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if Input.is_action_just_pressed("Left click"):
 		start_pos = get_global_mouse_position()
 	if Input.is_action_pressed("Left click"):
@@ -33,10 +33,10 @@ func _process(delta):
 		for i in newPositions:
 			$"../TileMap".set_cell(1, i, 1, Vector2i(0,0))
 	if Input.is_action_just_released("Right click"):
-		var summa:int
+		var summa := 0
 		for i in selected:
 			summa += $"../Unit Maneger".sizes[i]
-		var newSize:int = summa / len(newPositions)
+		var newSize = summa / len(newPositions)
 		var rest:int = summa - newSize * len(newPositions)
 		for i2 in range(len(newPositions)):
 			var curentNewSize = newSize

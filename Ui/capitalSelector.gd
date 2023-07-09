@@ -5,8 +5,8 @@ var huvudstadsPosition = Vector2i(0,0)
 
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	if MultiplayerManager.nuvarande_lag == -1:
 		return
 	if $"Map-Information".capitals[MultiplayerManager.nuvarande_lag] == Vector2i(-1,-1):
@@ -28,11 +28,11 @@ func _process(delta):
 			huvudstadsPosition = $TileMap.local_to_map(get_global_mouse_position())
 			
 @rpc("any_peer")
-func satt_huvudstad(position, färg):
-	$"Map-Information".capitals[färg] = position
+func satt_huvudstad(positionIn, färg):
+	$"Map-Information".capitals[färg] = positionIn
 	var instance = krona.instantiate()
-	instance.set_position($TileMap.map_to_local(position))
+	instance.set_position($TileMap.map_to_local(positionIn))
 	add_child(instance)
-	$"Map-Information".land[position.x][position.y] = färg
-	$"Map-Information".production[position.x][position.y] += 100
+	$"Map-Information".land[positionIn.x][positionIn.y] = färg
+	$"Map-Information".production[positionIn.x][positionIn.y] += 100
 	$"Map-Information".updateTileMap()

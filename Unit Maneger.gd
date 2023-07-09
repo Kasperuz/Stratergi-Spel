@@ -2,7 +2,7 @@ class_name UnitManeger
 
 extends Node
 
-const unit = preload("res://Ui/Unit/unit.tscn")
+const unitPreload = preload("res://Ui/Unit/unit.tscn")
 
 var unixTime
 
@@ -50,7 +50,7 @@ func syncNewUnit(position: Vector2i,color,size):
 func newUnit(position: Vector2i,color,size):
 	if multiplayer.is_server():
 		nodes.append(null)
-		nodes[len(nodes)-1] = unit.instantiate()
+		nodes[len(nodes)-1] = unitPreload.instantiate()
 		$"..".add_child.call_deferred(nodes[len(nodes)-1],true)
 		nodes[len(nodes)-1].index = len(nodes)-1
 		nodes[len(nodes)-1].color = color
@@ -67,11 +67,10 @@ func newUnit(position: Vector2i,color,size):
 	scheduleTimers.append(0.0)
 
 func lineAlgorithm(p1:Vector2i,p2:Vector2i):
-	var len = Vector2(p2.x - p1.x, p2.y - p1.y)
-	var r = ceil(sqrt(len.x * len.x + len.y * len.y))
+	var l = Vector2(p2.x - p1.x, p2.y - p1.y)
+	var r = ceil(sqrt(l.x * l.x + l.y * l.y))
 	var position = Vector2(p1.x, p1.y)
-	var slope = Vector2(len.x / r, len.y / r)
-	var error = Vector2(0,0)
+	var slope = Vector2(l.x / r, l.y / r)
 	var points = []
 	points.append(Vector2i(position))
 	for i in range(r):
@@ -126,8 +125,8 @@ func syncPosition(unit,position):
 		
 	
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+# Called every frame. '_delta' is the elapsed time since the previous frame.
+func _process(_delta):
 	unixTime = Time.get_unix_time_from_system()
 	$"../CanvasLayer/Ui/VBoxContainer/Soldater/Label".text = "Soldater: "+ str(antalGubbar[MultiplayerManager.nuvarande_lag])
 	for i in range(len(positions)):

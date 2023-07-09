@@ -17,5 +17,5 @@ func _unhandled_input(event):
 		if zoom > min_zoom:
 			zoom /= zoom_factor
 	
-func _process(delta):
+func _process(_delta):
 	position += Input.get_vector("A","D","W","S") * cameraSpeed / zoom
