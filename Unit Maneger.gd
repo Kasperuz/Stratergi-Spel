@@ -78,19 +78,19 @@ func lineAlgorithm(p1:Vector2i,p2:Vector2i):
 		points.append(Vector2i(round(position)))
 	return points
 	
-func syncSetSchedule(unit:int, list:Array):
-	setSchedule(unit,list)
-	rpc("setSchedule",unit,list)
 	
-@rpc("any_peer")
 func setSchedule(unit:int, list:Array):
+	schedules[unit] = []
+	list.insert(0,positions[unit])
+	for i in range(len(list)-1):
+		schedules[unit].append_array(lineAlgorithm(list[i],list[i+1]))
+		
+@rpc("any_peer")
+func sendSchedulesToServer(unit:int,scheduleiIn:Array):
 	if multiplayer.is_server():
-		schedules[unit] = []
+		schedules[unit] = scheduleiIn
 		scheduleTimers[unit] = unixTime + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
-		list.insert(0,positions[unit])
-		for i in range(len(list)-1):
-			schedules[unit].append_array(lineAlgorithm(list[i],list[i+1]))
-	
+		
 	
 func beräknaStrider(i):
 	var ledig = true

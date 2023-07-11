@@ -32,7 +32,11 @@ func _process(_delta):
 			newPositions.append($"../TileMap".local_to_map(get_global_mouse_position()))
 		for i in newPositions:
 			$"../TileMap".set_cell(1, i, 1, Vector2i(0,0))
+			
+			
 	if Input.is_action_just_released("Right click"):
+		var unitsToSync := []
+		var unitsToCreate := []
 		var summa := 0
 		for i in selected:
 			summa += $"../Unit Maneger".sizes[i]
@@ -46,23 +50,27 @@ func _process(_delta):
 			for i in selected:
 				if curentNewSize >= $"../Unit Maneger".sizes[i]:
 					curentNewSize -= $"../Unit Maneger".sizes[i]
-					$"../Unit Maneger".syncSetSchedule(i,[newPositions[i2]])
-					await get_tree().create_timer(0.1).timeout
+					$"../Unit Maneger".setSchedule(i,[newPositions[i2]])
+					unitsToSync.append(i)
+				
 				else:
 					if curentNewSize == 0:
 						newSelected.append(i)
+						unitsToSync.append(i)
 					else:
-						$"../Unit Maneger".syncNewUnit($"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i]-curentNewSize)
-				
-						$"../Unit Maneger".syncSetSchedule(i,[newPositions[i2]])
-						await get_tree().create_timer(0.1).timeout
+						$"../Unit Maneger".newUnit($"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i]-curentNewSize)
+						unitsToCreate.append(len($"../Unit Maneger".nodes)-1)
+						$"../Unit Maneger".setSchedule(i,[newPositions[i2]])
+						unitsToSync.append(i)
 						newSelected.append(len($"../Unit Maneger".nodes)-1)
-						$"../Unit Maneger".syncSetSize(i,curentNewSize)
-						await get_tree().create_timer(0.1).timeout
+						$"../Unit Maneger".setSize(i,curentNewSize)
 						curentNewSize = 0
 			selected = newSelected
-			
-			
+		for i in unitsToCreate:
+			$"../Unit Maneger".rpc("newUnit",$"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i])
+		for i in unitsToSync:
+			$"../Unit Maneger".rpc("setSize",i,$"../Unit Maneger".sizes[i])
+			$"../Unit Maneger".rpc("sendSchedulesToServer",i,$"../Unit Maneger".schedules[i])
 		for i in newPositions:
 			$"../TileMap".set_cell(1, i, -1, Vector2i(0,0))
 		newPositions = []
