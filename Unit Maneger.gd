@@ -14,12 +14,9 @@ var schedules: Array
 var scheduleTimers: Array
 var antalGubbar: Array
 
-
-func syncSetSize(unit,size):
-	setSize(unit,size)
-	rpc("setSize",unit,size)
-@rpc("any_peer")
 func setSize(unit,size):
+	if !multiplayer.is_server():
+		breakpoint
 	sizes[unit] = size
 
 func ta_bort_gubbe(gubbe: int):
@@ -41,12 +38,8 @@ func ta_bort_gubbe(gubbe: int):
 	for i in range(len($"../Selector".selected)):
 		if $"../Selector".selected[i] > gubbe:
 			$"../Selector".selected[i] -= 1
-func syncNewUnit(position: Vector2i,color,size):
-	print("A player with a peer id of: ",multiplayer.get_unique_id(), " has created a new unit at the position of: ", position, " and at the size of: ",size)
-	newUnit(position,color,size)
-	rpc("newUnit",position,color,size)
-		
-@rpc("any_peer")
+
+@rpc("any_peer")		
 func newUnit(position: Vector2i,color,size):
 	if multiplayer.is_server():
 		nodes.append(null)
@@ -55,16 +48,13 @@ func newUnit(position: Vector2i,color,size):
 		nodes[len(nodes)-1].index = len(nodes)-1
 		nodes[len(nodes)-1].color = color
 	
-	#arrows[len(arrows)-1] = arrow.instantiate()
-	#$"..".add_child.call_deferred(arrows[len(arrows)-1])
-	
-	positions.append(position)
-	
-	colors.append(color)
-	sizes.append(size)
-	
-	schedules.append([])
-	scheduleTimers.append(0.0)
+		positions.append(position)
+		
+		colors.append(color)
+		sizes.append(size)
+		
+		schedules.append([])
+		scheduleTimers.append(0.0)
 
 func lineAlgorithm(p1:Vector2i,p2:Vector2i):
 	var l = Vector2(p2.x - p1.x, p2.y - p1.y)
@@ -84,12 +74,13 @@ func setSchedule(unit:int, list:Array):
 	list.insert(0,positions[unit])
 	for i in range(len(list)-1):
 		schedules[unit].append_array(lineAlgorithm(list[i],list[i+1]))
-		
-@rpc("any_peer")
-func sendSchedulesToServer(unit:int,scheduleiIn:Array):
-	if multiplayer.is_server():
-		schedules[unit] = scheduleiIn
-		scheduleTimers[unit] = unixTime + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
+	scheduleTimers[unit] = Time.get_unix_time_from_system() + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
+
+#@rpc("any_peer")
+#func sendSchedulesToServer(unit:int,scheduleiIn:Array):
+#	if multiplayer.is_server():
+#		schedules[unit] = scheduleiIn
+#		scheduleTimers[unit] = unixTime + $"../Map-Information".speed[positions[unit].x][positions[unit].y]
 		
 	
 func beräknaStrider(i):
@@ -100,26 +91,25 @@ func beräknaStrider(i):
 		if positions[i3] == schedules[i][0]:
 			if colors[i3] == colors[i]:
 				if len(schedules[i]) == 1 and len(schedules[i3]) == 0:
-					syncSetSize(i,sizes[i] + sizes[i3])
-					syncSetSize(i3,0)
+					setSize(i,sizes[i] + sizes[i3])
+					setSize(i3,0)
 			else:
 				var försvars_antal = clamp(sizes[i3],0,20)
 				var attack_antal = clamp(sizes[i],0,30)
 				var p = attack_antal / (attack_antal  + försvars_antal * ($"../Map-Information".defence[positions[i3].x][positions[i3].y] + 1))
 				if randf() < p:
-					syncSetSize(i3,sizes[i3] - försvars_antal)
+					setSize(i3,sizes[i3] - försvars_antal)
 				else:
-					syncSetSize(i,sizes[i] - attack_antal)
+					setSize(i,sizes[i] - attack_antal)
 				ledig = false
 	if ledig:
 		if len(schedules[i]) > 0:
 			positions[i] = schedules[i][0]
 			schedules[i].remove_at(0)
 			scheduleTimers[i] += $"../Map-Information".speed[positions[i].x][positions[i].y]
-		rpc("syncPosition",i, positions[i])
+		setPosition(i, positions[i])
 
-@rpc("authority")
-func syncPosition(unit,position):
+func setPosition(unit,position):
 	positions[unit] = position
 		
 		

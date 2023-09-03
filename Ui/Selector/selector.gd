@@ -66,11 +66,9 @@ func _process(_delta):
 						$"../Unit Maneger".setSize(i,curentNewSize)
 						curentNewSize = 0
 			selected = newSelected
-		for i in unitsToCreate:
-			$"../Unit Maneger".rpc("newUnit",$"../Unit Maneger".positions[i],$"../Unit Maneger".colors[i],$"../Unit Maneger".sizes[i])
 		for i in unitsToSync:
-			$"../Unit Maneger".rpc("setSize",i,$"../Unit Maneger".sizes[i])
-			$"../Unit Maneger".rpc("sendSchedulesToServer",i,$"../Unit Maneger".schedules[i])
+			$"../Unit Maneger".setSize(i,$"../Unit Maneger".sizes[i])
+			
 		for i in newPositions:
 			$"../TileMap".set_cell(1, i, -1, Vector2i(0,0))
 		newPositions = []

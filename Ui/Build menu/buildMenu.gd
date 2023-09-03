@@ -28,6 +28,9 @@ func _on_check_button_pressed():
 
 func _on_gubbar_button_pressed():
 	if $"../../../Pruduktion".pengar[MultiplayerManager.nuvarande_lag] >= 10:
-		$"../../../Unit Maneger".syncNewUnit($"../../../Map-Information".capitals[MultiplayerManager.nuvarande_lag],MultiplayerManager.nuvarande_lag,10)
+		if multiplayer.is_server():
+			$"../../../Unit Maneger".newUnit($"../../../Map-Information".capitals[MultiplayerManager.nuvarande_lag],MultiplayerManager.nuvarande_lag,10)
+		else:
+			$"../../../Unit Maneger".rpc("newUnit",$"../../../Map-Information".capitals[MultiplayerManager.nuvarande_lag],MultiplayerManager.nuvarande_lag,10)
 		$"../../../Pruduktion".pengar[MultiplayerManager.nuvarande_lag] -= 10
 		$"../../../Pruduktion".update()
