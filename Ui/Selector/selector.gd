@@ -35,10 +35,26 @@ func _process(_delta):
 			
 			
 	if Input.is_action_just_released("Right click"):
+		if multiplayer.is_server():
+			createScheduleFromSelection(selected,newPositions)
+		else:
+			rpc("createScheduleFromSelection",selected,newPositions)
+			
+		for i in newPositions:
+			$"../TileMap".set_cell(1, i, -1, Vector2i(0,0))
+		newPositions = []
+		
+@rpc("any_peer")
+func createScheduleFromSelection(selected,newPositions):
+	if multiplayer.is_server():
+		print($"../Unit Maneger".sizes)
+		print("----")
 		var unitsToSync := []
 		var unitsToCreate := []
 		var summa := 0
 		for i in selected:
+			print($"../Unit Maneger".sizes)
+			print("----")
 			summa += $"../Unit Maneger".sizes[i]
 		var newSize = summa / len(newPositions)
 		var rest:int = summa - newSize * len(newPositions)
@@ -69,7 +85,7 @@ func _process(_delta):
 		for i in unitsToSync:
 			$"../Unit Maneger".setSize(i,$"../Unit Maneger".sizes[i])
 			
-		for i in newPositions:
-			$"../TileMap".set_cell(1, i, -1, Vector2i(0,0))
-		newPositions = []
-	
+		
+
+
+
