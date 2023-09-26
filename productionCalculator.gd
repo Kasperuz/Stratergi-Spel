@@ -6,17 +6,22 @@ func _ready():
 	pengar.resize(MultiplayerManager.antal_lag)
 	pengar.fill(10)
 
+@rpc
+func updateAntalGubbar(value):
+	$"../Unit Maneger".antalGubbar = value
+
 func _on_timeout():
 	start(1.0)
-	$"../Unit Maneger".antalGubbar.fill(0)
-	for i in range(len($"../Unit Maneger".sizes)):
-		$"../Unit Maneger".antalGubbar[$"../Unit Maneger".colors[i]] += $"../Unit Maneger".sizes[i]
+	if multiplayer.is_server():
+		$"../Unit Maneger".antalGubbar.fill(0)
+		for i in range(len($"../Unit Maneger".sizes)):
+			$"../Unit Maneger".antalGubbar[$"../Unit Maneger".colors[i]] += $"../Unit Maneger".sizes[i]
+		rpc("updateAntalGubbar",$"../Unit Maneger".antalGubbar)
 	for x in range($"../Map-Information".size.x):
 		for y in range($"../Map-Information".size.y):
 			if !$"../Map-Information".land[x][y] == 0:
 				pengar[$"../Map-Information".land[x][y]] += $"../Map-Information".production[x][y] * 0.01 
 				update()
-	#print("Pengar: ",pengar," AntalGubbar: ",$"../Unit Maneger".antalGubbar)
 	for i in range(0,MultiplayerManager.antal_lag):
 		pengar[i] -= ($"../Unit Maneger".antalGubbar[i] / 10)
 		

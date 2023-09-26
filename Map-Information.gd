@@ -38,6 +38,7 @@ func _ready():
 			land[x].append(0)
 	updateTileMap()
 
+@rpc("any_peer")
 func updateTileMap():
 	for x in range(size.x -1):
 		for y in range(size.y -1):
@@ -56,3 +57,8 @@ func updateTileMap():
 					tempCordinate = 10
 				
 			tileMap.set_cell(0, Vector2i(x,y), 0, Vector2i(land[x][y], tempCordinate))
+@rpc("authority")
+func updateMap(map):
+	land = map
+	updateTileMap()
+

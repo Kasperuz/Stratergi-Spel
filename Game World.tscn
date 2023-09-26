@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwi5d7wpqyosh"]
+[gd_scene load_steps=16 format=3 uid="uid://bwi5d7wpqyosh"]
 
 [ext_resource type="Script" path="res://Ui/capitalSelector.gd" id="1_nkwt0"]
 [ext_resource type="Texture2D" uid="uid://mviff3uovf7x" path="res://Ui/tileMapColors.png" id="2_ytybg"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://blsdtk7grws66" path="res://Ui/Selector/selector.tscn" id="6_738ul"]
 [ext_resource type="Script" path="res://Unit Maneger.gd" id="7_h3x76"]
 [ext_resource type="Script" path="res://productionCalculator.gd" id="9_1jmm2"]
+[ext_resource type="Script" path="res://UpdateMap.gd" id="9_s7x8v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xlxqf"]
 texture = ExtResource("2_ytybg")
@@ -197,8 +198,11 @@ script = ExtResource("9_1jmm2")
 _spawnable_scenes = PackedStringArray("res://Ui/Unit/unit.tscn")
 spawn_path = NodePath("..")
 
-[node name="Unit spwan node" type="Node2D" parent="."]
+[node name="UpdateMap" type="Timer" parent="."]
+autostart = true
+script = ExtResource("9_s7x8v")
 
 [connection signal="timeout" from="Pruduktion" to="Pruduktion" method="_on_timeout"]
+[connection signal="timeout" from="UpdateMap" to="UpdateMap" method="_on_timeout"]
 
 [editable path="CanvasLayer/Ui"]

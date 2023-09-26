@@ -39,6 +39,7 @@ func _process(_delta):
 			createScheduleFromSelection(selected,newPositions)
 		else:
 			rpc("createScheduleFromSelection",selected,newPositions)
+
 			
 		for i in newPositions:
 			$"../TileMap".set_cell(1, i, -1, Vector2i(0,0))

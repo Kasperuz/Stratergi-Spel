@@ -131,6 +131,7 @@ func _process(_delta):
 		if $"../Map-Information".land[positions[i].x][positions[i].y] != colors[i]:
 			$"../Map-Information".land[positions[i].x][positions[i].y] = colors[i]
 			$"../Map-Information".updateTileMap()
+			
 	for i in range(len(positions)-1,-1,-1):
 		if sizes[i] < 1:
 			ta_bort_gubbe(i)
